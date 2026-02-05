@@ -29,9 +29,11 @@ app.get("/", (req, res) => {
 if(ENV.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-    app.all("*", (req, res) => {
-        res.status(404).json({ message: "Route not found" });
-    });
+    // 404 handler (Express 5 safe)
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
 
 }
 
