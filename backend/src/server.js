@@ -5,6 +5,8 @@ import { connectDB } from './lib/db.js'
 import cors from "cors"
 import { serve } from "inngest/express"
 import { inngest, functions } from './lib/inngest.js'
+import { clerkMiddleware } from '@clerk/express'
+import chatRoutes from "./routes/chatRouter.js"
 
 const app = express()
 
@@ -15,25 +17,22 @@ app.use(express.json())
 // credentials:true meaning??=> server allows a browser to include cookies on request
 app.use(cors({origin: ENV.CLIENT_URL, credentials:true}))
 
+app.use(clerkMiddleware())              // this adds auth field to request object: req.auth()
+
 app.use("/api/inngest", serve({ client: inngest, functions}))
-app.get("/health", (req, res) => {
+app.use("/api/chat", chatRoutes)
+
+app.get("/health", (req, res) => {         
     res
     .status(200)
     .json({msg:"success from api"});
 });
 
-app.get("/books", (req, res) => {
-    res
-    .status(200)
-    .json({msg:"This is the book's endpoints"});
-})
-
 app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
+    res.send("Backend is running 🚀");
 });
 
-
-//make our app ready for deployment
+// This block of code is responsible for serving the frontend application in production. It checks if the environment is set to "production" and if so, it serves the static files from the "frontend/dist" directory. Additionally, it includes a 404 handler to catch any requests that do not match existing routes and respond with a JSON message indicating that the route was not found.
 
 if(ENV.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
@@ -44,9 +43,7 @@ if(ENV.NODE_ENV === "production"){
     });
 }
 
-
 const PORT = process.env.PORT || 3000;
-
 
 const startServer = async() => {
     try {
