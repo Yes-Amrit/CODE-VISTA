@@ -31,6 +31,8 @@ const syncUser = inngest.createFunction(
             name: newUser.name,
             image: newUser.profileImage,
         });
+        //Todo: send a welcome email here later - once course completed 
+
     }
 );
 
