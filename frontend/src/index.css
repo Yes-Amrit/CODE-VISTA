@@ -1,2 +1,20 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui"{
+    themes: all
+}
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@keyframes connect-vibrate {
+  0% { transform: translateX(0); }
+  45% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+.connect-hover:hover {
+  animation: connect-vibrate 0.3s ease-in-out 2;
+}
