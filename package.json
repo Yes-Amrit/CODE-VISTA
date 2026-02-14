@@ -14,9 +14,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/Yes-Amrit/CODE-VISTA/issues"
   },
-  "homepage": "https://github.com/Yes-Amrit/CODE-VISTA#readme"
+  "homepage": "https://github.com/Yes-Amrit/CODE-VISTA#readme",
+  "dependencies": {
+    "lucide-react": "^0.564.0"
+  }
 }
