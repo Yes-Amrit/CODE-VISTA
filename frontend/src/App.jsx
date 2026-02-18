@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import ProblemPage from './pages/ProblemPage'
 import DashboardPage from './pages/DashboardPage'
 import { Toaster } from 'react-hot-toast';
+import ProblemStatement from './pages/ProblemStatement'
 
 function App() {
   const {isSignedIn, isLoaded} = useUser();
@@ -18,6 +19,7 @@ function App() {
 
 
       <Route path="/problems" element = {isSignedIn ? < ProblemPage /> : <Navigate to={"/"} />} />
+      <Route path="/problem/:id" element = {isSignedIn ? < ProblemStatement /> : <Navigate to={""} />} />
     </Routes>
 
     <Toaster toastOptions={{ duration: 3000 }} />
@@ -26,6 +28,3 @@ function App() {
 }
 
 export default App
-
-// tw, daisyUi, react-router, react-hot-toast
-// todo: react-query aka tanstack query, axios
