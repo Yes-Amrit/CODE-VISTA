@@ -17,6 +17,7 @@
     "axios": "^1.12.2",
     "canvas-confetti": "^1.9.4",
     "framer-motion": "^12.34.0",
+    "lucide-react": "^0.564.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hot-toast": "^2.6.0",
