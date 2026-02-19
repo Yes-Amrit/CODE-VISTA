@@ -1,22 +1,35 @@
-import express from "express"
-import { 
-    createSession, 
-    getActiveSessions, 
-    getMyRecentSessions, 
-    getSessionById, 
-    joinSession,
-    endSession,  
-} from "../controllers/sessionController.js"
-import { protectRoute } from "../middleware/protectRoute.js"
+import express from "express";
+import {
+  createSession,
+  getActiveSessions,
+  getMyRecentSessions,
+  getSessionById,
+  joinSession,
+  endSession,
+  deleteSession,
+} from "../controllers/sessionController.js";
 
-const router = express.Router()
+import { protectRoute } from "../middleware/protectRoute.js";
 
-router.post("/", protectRoute, createSession)
-router.get("/active", protectRoute, getActiveSessions)
-router.get("/my-recent-session", protectRoute, getMyRecentSessions)
+const router = express.Router();
 
-router.get("/:id", protectRoute, getSessionById)
-router.post("/:id/join", protectRoute, joinSession)
-router.post("/:id/end", protectRoute, endSession)
+// Create session
+router.post("/", protectRoute, createSession);
 
-export default router
+// Get sessions
+router.get("/active", protectRoute, getActiveSessions);
+router.get("/my-recent-session", protectRoute, getMyRecentSessions);
+
+// Get session by ID
+router.get("/:id", protectRoute, getSessionById);
+
+// 🔐 Join session using ROOM KEY (not :id anymore)
+router.post("/join", protectRoute, joinSession);
+
+// End session
+router.post("/:id/end", protectRoute, endSession);
+
+// 🗑 Delete session (only host)
+router.delete("/:id", protectRoute, deleteSession);
+
+export default router;
