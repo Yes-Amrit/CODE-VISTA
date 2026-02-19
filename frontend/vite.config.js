@@ -7,6 +7,11 @@ export default defineConfig({
   base: "/",
   server: {
     proxy: {
+      "/api": {
+        target: "http://localhost:3000", // your backend port
+        changeOrigin: true,
+        secure: false,
+      },
       "/piston": {
         target: "https://piston.rs/api/v2",
         changeOrigin: true,
