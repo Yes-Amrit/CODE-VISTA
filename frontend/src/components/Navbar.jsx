@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { FileBracesCorner , LayoutDashboardIcon, UserStar } from "lucide-react";
+import { BookOpenIcon, LayoutDashboardIcon, UserStar } from "lucide-react";
 import { UserButton } from "@clerk/clerk-react";
 
 function Navbar() {
@@ -23,7 +23,7 @@ function Navbar() {
 
           <div className="flex flex-col">
             <span className="font-black text-xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent font-mono tracking-wider">
-              Code Vista
+              Code-Vista
             </span>
             <span className="text-xs text-base-content/60 font-medium -mt-1">Code Together</span>
           </div>
@@ -43,7 +43,7 @@ function Navbar() {
               `}
           >
             <div className="flex items-center gap-x-2.5">
-              <FileBracesCorner  className="size-4" />
+              <BookOpenIcon className="size-4" />
               <span className="font-medium hidden sm:inline">Problems</span>
             </div>
           </Link>
