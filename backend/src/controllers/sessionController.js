@@ -11,11 +11,11 @@ export async function createSession(req, res) {
       return res.status(400).json({ message: "Problem and difficulty are required" });
     }
 
-    // 1. Generate unique ID first
+    // 1. Generate unique ID
     const callId = `session_${Date.now()}_${Math.random().toString(36).substring(7)}`;
 
     // 2. Try to create the Stream Video Call FIRST
-    // If this fails, it jumps straight to the catch block (no DB save!)
+    // If this fails, it jumps to catch, and NO session is created in DB
     await streamClient.video.call("default", callId).getOrCreate({
       data: {
         created_by_id: clerkId,
@@ -30,7 +30,7 @@ export async function createSession(req, res) {
     });
     await channel.watch();
 
-    // 4. ONLY IF EVERYTHING ABOVE WORKED, save to MongoDB
+    // 4. ONLY save to MongoDB if the APIs above succeeded
     const session = await Session.create({ 
       problem, 
       difficulty, 
@@ -39,11 +39,12 @@ export async function createSession(req, res) {
       roomKey: callId 
     });
 
-    // 5. Send one single success response
+    // 5. Success! Only one response sent.
     return res.status(201).json({ session });
+
   } catch (error) {
     console.error("CRITICAL ERROR in createSession:", error);
-    // If we reach here, nothing was saved to DB, so only 1 "Failure" toast shows
+    // This ensures the frontend only gets the "Failed" message
     return res.status(500).json({ 
       message: "Failed to create session room", 
       error: error.message 
