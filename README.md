@@ -1,6 +1,8 @@
 # 🚀 CODE VISTA
 <img width="1761" height="1045" alt="image" src="https://github.com/user-attachments/assets/ce628082-d924-4b92-a6ae-764c405981c4" />
 <img width="1755" height="596" alt="image" src="https://github.com/user-attachments/assets/694d062f-3f92-4672-851f-e58a041b4480" />
+<img width="1914" height="1045" alt="Screenshot 2026-02-18 224457" src="https://github.com/user-attachments/assets/507da9f1-cdee-4d33-9b8b-3473a68c1cd1" />
+<img width="1911" height="1051" alt="Screenshot 2026-02-19 150736" src="https://github.com/user-attachments/assets/47dc11cf-cc38-459b-b3d7-649c1640aefc" />
 
 ### Real-Time Video Interview & Live Coding Platform
 
