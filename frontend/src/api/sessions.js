@@ -21,8 +21,9 @@ export const sessionApi = {
     return response.data;
   },
 
-  joinSession: async (data) => {
-    const response = await axiosInstance.post(`/sessions/join`, data);
+  joinSession: async (id) => {
+    // We move the 'id' from the data object directly into the URL path
+    const response = await axiosInstance.post(`/sessions/${id}/join`);
     return response.data;
   },
 

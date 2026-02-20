@@ -20,8 +20,8 @@ function App() {
 
 
       <Route path="/problems" element = {isSignedIn ? < ProblemPage /> : <Navigate to={"/"} />} />
-      <Route path="/problem/:id" element = {isSignedIn ? < ProblemStatement /> : <Navigate to={""} />} />
-      <Route path="/session/:id" element = {isSignedIn ? < SessionPage /> : <Navigate to={""} />} />
+      <Route path="/problem/:id" element = {isSignedIn ? < ProblemStatement /> : <Navigate to={"/"} />} />
+      <Route path="/session/:id" element = {isSignedIn ? < SessionPage /> : <Navigate to={"/"} />} />
     </Routes>
 
     <Toaster toastOptions={{ duration: 3000 }} />

@@ -1,32 +1,21 @@
 import { getDifficultyBadgeClass } from "../lib/utils";
-
 function ProblemDescription({ problem, currentProblemId, onProblemChange, allProblems }) {
   return (
     <div className="h-full overflow-y-auto bg-base-200">
-      
       {/* HEADER SECTION */}
-      <div className="p-6 bg-base-100 border-b border-base-300 rounded-b-3xl">
+      <div className="p-6 bg-base-100 border-b border-base-300">
         <div className="flex items-start justify-between mb-3">
-          <h1 className=" text-blue-500/90 text-3xl font-bold text-base-content">
-            {problem.title}
-          </h1>
-
-          {/* Difficulty Badge */}
-          <span
-            className={`badge rounded-3xl px-4 py-3 text-sm font-semibold ${getDifficultyBadgeClass(
-              problem.difficulty
-            )}`}
-          >
+          <h1 className="text-3xl font-bold text-base-content">{problem.title}</h1>
+          <span className={`badge ${getDifficultyBadgeClass(problem.difficulty)}`}>
             {problem.difficulty}
           </span>
         </div>
-
         <p className="text-base-content/60">{problem.category}</p>
 
         {/* Problem selector */}
         <div className="mt-4">
           <select
-            className="select select-sm w-full rounded-3xl border border-base-300 bg-base-200 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+            className="select select-sm w-full"
             value={currentProblemId}
             onChange={(e) => onProblemChange(e.target.value)}
           >
@@ -40,10 +29,9 @@ function ProblemDescription({ problem, currentProblemId, onProblemChange, allPro
       </div>
 
       <div className="p-6 space-y-6">
-        
-        {/* DESCRIPTION */}
-        <div className="bg-base-100 rounded-3xl shadow-sm p-5 border border-base-300">
-          <h2 className="text-xl font-bold text-base-content text-blue-500/90">Description</h2>
+        {/* PROBLEM DESC */}
+        <div className="bg-base-100 rounded-xl shadow-sm p-5 border border-base-300">
+          <h2 className="text-xl font-bold text-base-content">Description</h2>
 
           <div className="space-y-3 text-base leading-relaxed">
             <p className="text-base-content/90">{problem.description.text}</p>
@@ -55,44 +43,29 @@ function ProblemDescription({ problem, currentProblemId, onProblemChange, allPro
           </div>
         </div>
 
-        {/* EXAMPLES */}
-        <div className="bg-base-100 rounded-3xl shadow-sm p-5 border border-base-300">
-          <h2 className="text-xl font-bold mb-4 text-base-content text-blue-500/90">
-            Examples
-          </h2>
-
+        {/* EXAMPLES SECTION */}
+        <div className="bg-base-100 rounded-xl shadow-sm p-5 border border-base-300">
+          <h2 className="text-xl font-bold mb-4 text-base-content">Examples</h2>
           <div className="space-y-4">
             {problem.examples.map((example, idx) => (
               <div key={idx}>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="badge badge-sm rounded-3xl">
-                    {idx + 1}
-                  </span>
-                  <p className="text-green-400/70 font-semibold text-base-content">
-                    Example {idx + 1}
-                  </p>
+                  <span className="badge badge-sm">{idx + 1}</span>
+                  <p className="font-semibold text-base-content">Example {idx + 1}</p>
                 </div>
-
-                <div className="bg-base-200 rounded-3xl p-4 font-mono text-sm space-y-1.5">
+                <div className="bg-base-200 rounded-lg p-4 font-mono text-sm space-y-1.5">
                   <div className="flex gap-2">
-                    <span className="text-primary font-bold min-w-[70px]">
-                      Input:
-                    </span>
+                    <span className="text-primary font-bold min-w-[70px]">Input:</span>
                     <span>{example.input}</span>
                   </div>
-
                   <div className="flex gap-2">
-                    <span className="text-secondary font-bold min-w-[70px]">
-                      Output:
-                    </span>
+                    <span className="text-secondary font-bold min-w-[70px]">Output:</span>
                     <span>{example.output}</span>
                   </div>
-
                   {example.explanation && (
                     <div className="pt-2 border-t border-base-300 mt-2">
                       <span className="text-base-content/60 font-sans text-xs">
-                        <span className="font-semibold ">Explanation:</span>{" "}
-                        {example.explanation}
+                        <span className="font-semibold">Explanation:</span> {example.explanation}
                       </span>
                     </div>
                   )}
@@ -103,11 +76,8 @@ function ProblemDescription({ problem, currentProblemId, onProblemChange, allPro
         </div>
 
         {/* CONSTRAINTS */}
-        <div className="bg-base-100 rounded-3xl shadow-sm p-5 border border-base-300">
-          <h2 className="text-xl font-bold mb-4 text-base-content text-blue-500/90 ">
-            Constraints
-          </h2>
-
+        <div className="bg-base-100 rounded-xl shadow-sm p-5 border border-base-300">
+          <h2 className="text-xl font-bold mb-4 text-base-content">Constraints</h2>
           <ul className="space-y-2 text-base-content/90">
             {problem.constraints.map((constraint, idx) => (
               <li key={idx} className="flex gap-2">
