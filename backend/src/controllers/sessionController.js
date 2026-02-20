@@ -11,11 +11,26 @@ export async function createSession(req, res) {
       return res.status(400).json({ message: "Problem and difficulty are required" });
     }
 
-    // 1. Generate a unique call id for stream video
+    // 1. Generate unique ID first
     const callId = `session_${Date.now()}_${Math.random().toString(36).substring(7)}`;
 
-    // 2. Create session in MongoDB 
-    // Fixed: Added roomKey to satisfy your schema requirements
+    // 2. Try to create the Stream Video Call FIRST
+    // If this fails, it jumps straight to the catch block (no DB save!)
+    await streamClient.video.call("default", callId).getOrCreate({
+      data: {
+        created_by_id: clerkId,
+        custom: { problem, difficulty },
+      },
+    });
+
+    // 3. Setup Chat Messaging
+    const channel = chatClient.channel("messaging", callId, {
+      name: `${problem} Session`,
+      created_by_id: clerkId,
+    });
+    await channel.watch();
+
+    // 4. ONLY IF EVERYTHING ABOVE WORKED, save to MongoDB
     const session = await Session.create({ 
       problem, 
       difficulty, 
@@ -24,37 +39,16 @@ export async function createSession(req, res) {
       roomKey: callId 
     });
 
-    // 3. Create Stream Video Call
-    // Note: By not passing a strict "members" array here, it defaults to the 
-    // permissions set in your Stream Dashboard for the "default" call type.
-    await streamClient.video.call("default", callId).getOrCreate({
-      data: {
-        created_by_id: clerkId,
-        custom: { 
-          problem, 
-          difficulty, 
-          sessionId: session._id.toString() 
-        },
-      },
-    });
+    // 5. Send one single success response
+    return res.status(201).json({ session });
 
-    // 4. Setup Chat Messaging
-    // FIX: We removed 'members: [clerkId]'. 
-    // Including members makes a channel "Private". Removing it makes it 
-    // "Public" (accessible to anyone who has the channel ID and watches it).
-    const channel = chatClient.channel("messaging", callId, {
-      name: `${problem} Session`,
-      created_by_id: clerkId,
-    });
-
-    // Use .watch() to ensure the channel is initialized and ready for listeners
-    await channel.watch();
-
-    res.status(201).json({ session });
   } catch (error) {
-    // Detailed logging to help you see exactly where it fails in the terminal
-    console.error("Error in createSession controller:", error); 
-    res.status(500).json({ message: "Internal Server Error", error: error.message });
+    console.error("CRITICAL ERROR in createSession:", error);
+    // If we reach here, nothing was saved to DB, so only 1 "Failure" toast shows
+    return res.status(500).json({ 
+      message: "Failed to create session room", 
+      error: error.message 
+    });
   }
 }
 
