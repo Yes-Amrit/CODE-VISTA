@@ -41,7 +41,6 @@ export async function createSession(req, res) {
 
     // 5. Send one single success response
     return res.status(201).json({ session });
-
   } catch (error) {
     console.error("CRITICAL ERROR in createSession:", error);
     // If we reach here, nothing was saved to DB, so only 1 "Failure" toast shows
