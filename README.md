@@ -4,7 +4,8 @@
 <img width="1914" height="1045" alt="Screenshot 2026-02-18 224457" src="https://github.com/user-attachments/assets/507da9f1-cdee-4d33-9b8b-3473a68c1cd1" />
 <img width="1911" height="1051" alt="Screenshot 2026-02-19 150736" src="https://github.com/user-attachments/assets/47dc11cf-cc38-459b-b3d7-649c1640aefc" />
 
-### Real-Time Video Interview & Live Coding Platform
+
+## Real-Time Video Interview & Live Coding Platform
 
 CODE VISTA is a full-stack MERN application that enables real-time video interviews with an integrated live coding environment and chat system. It is built for conducting seamless technical interviews and collaborative coding sessions.
 
